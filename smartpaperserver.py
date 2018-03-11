@@ -1,10 +1,12 @@
 from flask import Flask
+from miners.ScienceDirectMiner import ScienceDirectMiner
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def search():
+    science_miner = ScienceDirectMiner()
     return 'Hello World!'
 
 
