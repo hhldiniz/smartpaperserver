@@ -32,4 +32,6 @@ class ScienceDirectMiner(Miner):
     def send_request(self):
         requester = self.get_requester()
         regex = re.compile(r"{{\w+\}\}")
-        regex.sub(requester.set_target(requester.get_target()), "")
+        requester.set_target(regex.sub(requester.get_target(), ""))
+        requester.get_connection().request("GET", requester.get_target())
+        return requester.get_connection().getresponse()
