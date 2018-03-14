@@ -11,7 +11,7 @@ def search():
         key = request.form["key"]
         science_miner = ScienceDirectMiner()
         science_miner.set_main_key(new_key=key)
-        return science_miner.send_request().msg
+        return science_miner.send_request().read()
 
 
 if __name__ == '__main__':

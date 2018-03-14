@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from miners.Miner import Miner
 import re
 
@@ -13,6 +14,7 @@ class ScienceDirectMiner(Miner):
                          "&page={{page}}"
                          "&origin=home"
                          "&zone=qSearch")
+        self.reset_target()
 
     def set_main_key(self, new_key):
         requester = self.get_requester()
@@ -31,7 +33,8 @@ class ScienceDirectMiner(Miner):
 
     def send_request(self):
         requester = self.get_requester()
-        regex = re.compile(r"{{\w+\}\}")
-        requester.set_target(regex.sub(requester.get_target(), ""))
-        requester.get_connection().request("GET", requester.get_target())
-        return requester.get_connection().getresponse()
+        con = requester.get_connection()
+        requester.set_target(re.sub("{{\w+}}", "", requester.get_target()))
+        print(requester.get_target())
+        con.request("GET", requester.get_target())
+        return con.getresponse()
