@@ -33,8 +33,6 @@ class ScienceDirectMiner(Miner):
 
     def send_request(self):
         requester = self.get_requester()
-        con = requester.get_connection()
         requester.set_target(re.sub("{{\w+}}", "", requester.get_target()))
-        print(requester.get_target())
-        con.request("GET", requester.get_target())
-        return con.getresponse()
+        con = requester.get_connection("GET")
+        return con.content

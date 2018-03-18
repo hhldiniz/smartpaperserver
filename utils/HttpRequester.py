@@ -1,4 +1,4 @@
-from http import client
+import requests
 
 
 class HttpClient:
@@ -7,8 +7,17 @@ class HttpClient:
         self.__timeout = timeout
         self.__port = port
 
-    def get_connection(self):
-        return client.HTTPConnection(host=self.__target, port=self.__port, timeout=self.__timeout)
+    def get_connection(self, method, params=None):
+        if params is None:
+            params = {}
+        if method == "GET" or method == "get":
+            return requests.get(self.get_target(), params=params)
+        elif method == "POST" or method == "post":
+            return requests.post(self.get_target(), params=params)
+        elif method == "PUT" or method == "put":
+            return requests.put(self.get_target(), params=params)
+        else:
+            return requests.delete(self.get_target())
 
     def set_target(self, new_target):
         self.__target = new_target
