@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from miners.Miner import Miner
 import re
+
+from miners.Miner import Miner
+from utils.HTMLConsumer import HTMLConsumer
 
 
 class ScienceDirectMiner(Miner):
@@ -35,4 +37,7 @@ class ScienceDirectMiner(Miner):
         requester = self.get_requester()
         requester.set_target(re.sub("{{\w+}}", "", requester.get_target()))
         con = requester.get_connection("GET")
+        consumer = HTMLConsumer()
+        consumer.feed(str(con.content))
+        print(consumer.get_tags_attrs())
         return con.content
