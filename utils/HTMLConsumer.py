@@ -20,6 +20,10 @@ class HTMLConsumer(HTMLParser):
         except KeyError:
             self.__tags_attrs.__setitem__(tag, [attrs])
 
-    def handle_endtag(self, tag):
-        pass
-        # print("Encountered an end tag :", tag)
+    def get_tag_content(self, tag_name, tag_attrs):
+        try:
+            all_tags_attrs = self.__tags_attrs.__getitem__(tag_name)
+            for attr in all_tags_attrs:
+                print(attr)
+        except KeyError:
+            return None
