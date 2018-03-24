@@ -13,6 +13,18 @@ class DBController:
     def connect(self):
         self.__client = MongoClient(host=self.__host, port=self.__port)
 
+    def select(self, collection, params=None):
+        if params is None:
+            params = {}
+        db = self.get_database()
+        collection = db[collection]
+        if params.__len__() == 0:
+            return collection.find()
+        elif params.__len__() == 1:
+            return collection.find_one(params)
+        else:
+            return collection.find(params)
+
     def get_database(self):
         return self.__client[self.__dbname]
 
