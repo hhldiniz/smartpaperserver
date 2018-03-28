@@ -20,6 +20,12 @@ class HTMLConsumer(HTMLParser):
         except KeyError:
             self.__tags_attrs.__setitem__(tag, [attrs])
 
+    def handle_data(self, data):
+        print(data)
+
+    def unknown_decl(self, data):
+        print(f"Conteúdo desconhecido: #{data}")
+
     def get_tag_content(self, tag_name, tag_attrs):
         try:
             all_tags_attrs = self.__tags_attrs.__getitem__(tag_name)
