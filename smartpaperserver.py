@@ -1,8 +1,11 @@
-from flask import Flask
+from flask import Flask, session
 from flask import request
 
 from miners.ScienceDirectMiner import ScienceDirectMiner
 from utils.DBController import DBController
+from models.User import User
+from modules.Login import Login
+import json
 
 app = Flask(__name__)
 
@@ -21,6 +24,19 @@ def get_articles_names():
     if request.method == "GET":
         db_controller = DBController()
         db_controller.connect()
+
+
+@app.route('/authenticate', methods=["POST"])
+def authenticate():
+    if request.method == "POST":
+        user = User(username=request.form["username"], password=request.form["password"])
+        if session["user"] == user:
+            return json.dumps({"result": True})
+        else:
+            login_module = Login(user)
+            login_result = login_module.login()
+            session["user"] = user
+            return json.dumps({"result": login_result})
 
 
 if __name__ == '__main__':

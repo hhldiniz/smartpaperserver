@@ -25,6 +25,11 @@ class DBController:
         else:
             return collection.find(params)
 
+    def insert(self, collection, document):
+        db = self.get_database()
+        collection = db[collection]
+        collection.insert_one(document)
+
     def get_database(self):
         return self.__client[self.__dbname]
 
