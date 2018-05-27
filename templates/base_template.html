@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -11,10 +12,38 @@
     {% block scripts %}
         <script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".dropdown-trigger").dropdown();
+            });
+        </script>
     {% endblock %}
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+{% block content %}
+    <ul id="dropdown_user_action" class="dropdown-content">
+        {% if logged == True %}
+            <li><a href="#!">Histórico</a></li>
+            <li><a href="#!">Fontes</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Sair</a></li>
+        {% else %}
+            <li><a href="#!">Entrar</a></li>
+            <li><a href="#!">Cadastrar</a></li>
+        {% endif %}
+    </ul>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">Smart Paper</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/about">Sobre</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown_user_action">Login<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+{% endblock %}
 </body>
 </html>

@@ -1,14 +1,18 @@
 from flask.views import View
 from flask import request, render_template
+from abc import ABC
 
 
-class BaseView(View):
+class BaseView(View, ABC):
     def __init__(self, template_name, title):
         self.__template_name = template_name
         self.__title = title
 
     def get_template_name(self):
         return self.__template_name
+
+    def set_title(self, title):
+        self.__title = title
 
     def dispatch_request(self):
         if request.method == "GET":

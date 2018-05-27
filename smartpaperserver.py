@@ -6,6 +6,7 @@ from utils.DBController import DBController
 from models.User import User
 from modules.Login import Login
 from views.IndexView import IndexView
+from views.AboutView import AboutView
 import json
 
 app = Flask(__name__)
@@ -41,8 +42,9 @@ def authenticate():
 
 
 index_view = IndexView(template_name="index.html")
+about_view = AboutView("about.html")
 app.add_url_rule("/", view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
-
+app.add_url_rule("/about", view_func=about_view.as_view("about", template_name=about_view.get_template_name()))
 
 if __name__ == '__main__':
     app.run()
