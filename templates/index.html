@@ -1,7 +1,24 @@
 {% extends "base_template.html" %}
 {% block styles %}
     {{ super() }}
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
 {% endblock %}
 {% block scripts %}
     {{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <div class="row">
+        <form class="col s8" id="search_form" action="/search" method="post">
+            <div class="input-field col s8">
+                <input id="key" name="key">
+                <label for="key">Chave de Busca</label>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
