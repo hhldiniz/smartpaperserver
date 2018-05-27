@@ -5,12 +5,13 @@ from miners.ScienceDirectMiner import ScienceDirectMiner
 from utils.DBController import DBController
 from models.User import User
 from modules.Login import Login
+from views.IndexView import IndexView
 import json
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=["POST"])
+@app.route('/search', methods=["POST"])
 def search():
     if request.method == "POST":
         key = request.form["key"]
@@ -37,6 +38,10 @@ def authenticate():
             login_result = login_module.login()
             session["user"] = user
             return json.dumps({"result": login_result})
+
+
+index_view = IndexView(template_name="index.html")
+app.add_url_rule("/", view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
 
 
 if __name__ == '__main__':
