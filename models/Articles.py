@@ -1,5 +1,8 @@
+from utils.DBController import DBController
+
+
 class Articles:
-    def __init__(self, name, src="", content="", user=""):
+    def __init__(self, name, src="", content="", user=None):
         self.__name = name
         self.__src = src
         self.__content = content
@@ -28,3 +31,15 @@ class Articles:
 
     def get_user(self):
         return self.__user
+
+    def save(self):
+        db_controller = DBController()
+        db_controller.connect()
+        insert_result = db_controller.insert("articles",
+                                             {
+                                                 "name": self.__name,
+                                                 "source": self.__src,
+                                                 "content": self.__content,
+                                                 "user_id": self.__user.get_id()
+                                             })
+        return insert_result.inserted_id is not None
