@@ -47,3 +47,9 @@ class User:
                                                  "email": self.__email
                                              })
         return insert_result.inserted_id is not None
+
+    @staticmethod
+    def get(select_filter):
+        db_controller = DBController()
+        db_controller.connect()
+        return db_controller.as_array("users", select_filter)

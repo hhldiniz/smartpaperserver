@@ -1,23 +1,43 @@
 {% extends "base_template.html" %}
 {% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
 {% endblock %}
 {% block scripts %}
-    {{ super() }}
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{{ super() }}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}
 {% block content %}
-    {{ super() }}
-    <div class="row">
-        <form class="col s8" id="search_form">
-            <div class="input-field col s8">
-                <input id="key" name="key">
-                <label for="key">Chave de Busca</label>
-                <button class="btn waves-effect waves-light" type="button" id="submit_search" name="action">Submit
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-        </form>
+{{ super() }}
+<div id="modal_login" class="modal">
+    <div class="modal-content">
+        <h4>Login</h4>
+        <div class="row s12">
+            <form>
+                <div class="col s12">
+                    <input id="username" class="input-field">
+                    <label for="username">Usuário</label>
+                </div>
+                <div class="col s12">
+                    <input id="password" class="input-field" type="password">
+                    <label for="password">Senha</label>
+                </div>
+            </form>
+        </div>
     </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Autenticar</a>
+    </div>
+</div>
+<div class="row">
+    <form class="col s8" id="search_form">
+        <div class="input-field col s8">
+            <input id="key" name="key">
+            <label for="key">Chave de Busca</label>
+            <button class="btn waves-effect waves-light" type="button" id="submit_search" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

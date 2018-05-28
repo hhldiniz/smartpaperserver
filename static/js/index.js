@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $(".modal").modal();
     $("#submit_search").click(function () {
         $.ajax({
             url: "/search",

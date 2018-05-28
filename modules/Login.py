@@ -1,4 +1,4 @@
-from utils.DBController import DBController
+from models.User import User
 
 
 class Login:
@@ -8,7 +8,6 @@ class Login:
     def login(self):
         username = self.__user.get_username()
         password = self.__user.get_password()
-        db_controller = DBController(dbname="smartpaper")
-        db_controller.connect()
-        result = db_controller.select("users", {"username": username, "password": password})
+        user = User()
+        result = user.get({"username": username, "password": password})
         return result.__len__() > 0
