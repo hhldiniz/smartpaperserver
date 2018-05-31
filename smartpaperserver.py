@@ -1,5 +1,4 @@
-from flask import Flask, session
-from flask import request
+from flask import Flask, session, request
 
 from miners.ScienceDirectMiner import ScienceDirectMiner
 from utils.DBController import DBController
@@ -11,6 +10,7 @@ from views.SignupView import SignupView
 import json
 
 app = Flask(__name__)
+app.secret_key = "E7162800D84BFB861148F6F8E17462697866C542FE2E0E7D87AF0D01E209AB12"
 
 
 @app.route('/search', methods=["POST"])
@@ -40,14 +40,23 @@ def authenticate():
                 login_module = Login(user)
                 login_result = login_module.login()
                 if login_result:
-                    session["user"] = user
+                    session["user"] = {"username": user.get_username(), "password": user.get_password()}
                 return json.dumps({"result": login_result})
         except KeyError:
             login_module = Login(user)
             login_result = login_module.login()
             if login_result:
-                session["user"] = user
+                session["user"] = {"username": user.get_username(), "password": user.get_password()}
             return json.dumps({"result": login_result})
+
+
+@app.route("/logout")
+def logout():
+    try:
+        session["user"] = None
+        return json.dumps({"result": True})
+    except KeyError:
+        return json.dumps({"result": False})
 
 
 index_view = IndexView(template_name="index.html")
@@ -59,4 +68,5 @@ app.add_url_rule("/signup", methods=["GET", "POST"],
                  view_func=signup_view.as_view("signup", template_name=signup_view.get_template_name()))
 
 if __name__ == '__main__':
+    app.config["SESSION_TYPE"] = "mongodb"
     app.run()

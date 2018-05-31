@@ -25,11 +25,24 @@ $(document).ready(function () {
             success: data=>{
                 data = JSON.parse(data);
                 if(data["result"])
-                    $(window).reload();
+                    window.location.reload();
             },
             error: err=>{
-
+                console.log(err);
             }
         });
+    });
+    $("#logout_link").click(()=>{
+       $.ajax({
+           url:"/logout",
+           success: data=>{
+               data = JSON.parse(data);
+               if(data["result"])
+                   window.location.reload();
+           },
+           error: err=>{
+               console.log(err);
+           }
+       })
     });
 });
