@@ -34,7 +34,7 @@ class DBController:
     def insert(self, collection, document):
         db = self.get_database()
         collection = db[collection]
-        collection.insert_one(document)
+        return collection.insert_one(document)
 
     def get_database(self):
         return self.__client[self.__dbname]

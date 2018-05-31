@@ -33,12 +33,20 @@ def get_articles_names():
 def authenticate():
     if request.method == "POST":
         user = User(username=request.form["username"], password=request.form["password"])
-        if session["user"] == user:
-            return json.dumps({"result": True})
-        else:
+        try:
+            if session["user"] == user:
+                return json.dumps({"result": True})
+            else:
+                login_module = Login(user)
+                login_result = login_module.login()
+                if login_result:
+                    session["user"] = user
+                return json.dumps({"result": login_result})
+        except KeyError:
             login_module = Login(user)
             login_result = login_module.login()
-            session["user"] = user
+            if login_result:
+                session["user"] = user
             return json.dumps({"result": login_result})
 
 
@@ -47,7 +55,8 @@ about_view = AboutView("about.html")
 signup_view = SignupView("signup.html")
 app.add_url_rule("/", view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
 app.add_url_rule("/about", view_func=about_view.as_view("about", template_name=about_view.get_template_name()))
-app.add_url_rule("/signup", view_func=signup_view.as_view("signup", template_name=signup_view.get_template_name()))
+app.add_url_rule("/signup", methods=["GET", "POST"],
+                 view_func=signup_view.as_view("signup", template_name=signup_view.get_template_name()))
 
 if __name__ == '__main__':
     app.run()
