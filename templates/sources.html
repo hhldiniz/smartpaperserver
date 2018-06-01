@@ -4,7 +4,10 @@
 {% endblock %}
 {% block scripts %}
     {{ super() }}
+    <script src="url_for('static', filename='js/sources.js')"></script>
 {% endblock %}
 {% block content %}
     {{ super() }}
+    {% include "forms/add_source_form.html" %}
+    <a class="btn-floating btn-large waves-effect waves-light red" id="add_source_btn"><i class="material-icons">add</i></a>
 {% endblock %}

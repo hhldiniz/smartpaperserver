@@ -13,6 +13,7 @@
         <script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
         <script src="{{ url_for('static', filename='js/input_controller.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="{{ url_for('static', filename='js/exit.js') }}"></script>
         <script>
             $(document).ready(function () {
                 $(".dropdown-trigger").dropdown();
@@ -24,8 +25,8 @@
 {% block content %}
     <ul id="dropdown_user_action" class="dropdown-content">
         {% if user != None %}
-            <li><a href="#!">Histórico</a></li>
-            <li><a href="#!">Fontes</a></li>
+            <li><a href="/history">Histórico</a></li>
+            <li><a href="/sources">Fontes</a></li>
             <li class="divider"></li>
             <li><a href="#!" id="logout_link">Sair</a></li>
         {% else %}
