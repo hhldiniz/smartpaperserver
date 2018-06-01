@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress HtmlUnknownTarget -->
+<!--suppress HtmlUnknownTarget, InjectedReferences -->
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -10,10 +10,10 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% endblock %}
     {% block scripts %}
-        <script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/input_controller.js') }}"></script>
+        <script src={{ url_for('static', filename='js/jquery-3.3.1.js') }}></script>
+        <script src={{ url_for('static', filename='js/input_controller.js') }}></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        <script src="{{ url_for('static', filename='js/exit.js') }}"></script>
+        <script src={{ url_for('static', filename='js/exit.js') }}></script>
         <script>
             $(document).ready(function () {
                 $(".dropdown-trigger").dropdown();

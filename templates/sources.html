@@ -1,10 +1,11 @@
 {% extends "base_template.html" %}
 {% block styles %}
     {{ super() }}
+    <link rel="stylesheet" href={{ url_for('static', filename='css/sources.css') }}>
 {% endblock %}
 {% block scripts %}
     {{ super() }}
-    <script src="url_for('static', filename='js/sources.js')"></script>
+    <script src={{url_for('static', filename='js/sources.js')}}></script>
 {% endblock %}
 {% block content %}
     {{ super() }}

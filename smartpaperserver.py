@@ -74,6 +74,7 @@ app.add_url_rule("/history", methods=["GET", "POST"],
                  view_func=history_view.as_view("history", template_name=history_view.get_template_name()))
 app.add_url_rule("/sources", methods=["GET", "POST"],
                  view_func=sources_view.as_view("sources", template_name=sources_view.get_template_name()))
+
 if __name__ == '__main__':
     app.config["SESSION_TYPE"] = "mongodb"
     app.run()

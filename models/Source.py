@@ -2,14 +2,21 @@ from utils.DBController import DBController
 
 
 class Source:
-    def __init__(self, url):
+    def __init__(self, url, user):
         self.__url = url
+        self.__user = user
 
     def get_url(self):
         return self.__url
 
     def set_url(self, url):
         self.__url = url
+
+    def set_user(self, user):
+        self.__user = user
+
+    def get_user(self):
+        return self.__user
 
     def save(self):
         db_controller = DBController()
