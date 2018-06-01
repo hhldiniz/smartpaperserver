@@ -7,6 +7,7 @@ from modules.Login import Login
 from views.IndexView import IndexView
 from views.AboutView import AboutView
 from views.SignupView import SignupView
+from views.HistoryView import HistoryView
 import json
 
 app = Flask(__name__)
@@ -62,10 +63,13 @@ def logout():
 index_view = IndexView(template_name="index.html")
 about_view = AboutView("about.html")
 signup_view = SignupView("signup.html")
+history_view = HistoryView("history.html")
 app.add_url_rule("/", view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
 app.add_url_rule("/about", view_func=about_view.as_view("about", template_name=about_view.get_template_name()))
 app.add_url_rule("/signup", methods=["GET", "POST"],
                  view_func=signup_view.as_view("signup", template_name=signup_view.get_template_name()))
+app.add_url_rule("/history", methods=["GET", "POST"],
+                 view_func=history_view.as_view("history", template_name=history_view.get_template_name()))
 
 if __name__ == '__main__':
     app.config["SESSION_TYPE"] = "mongodb"

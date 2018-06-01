@@ -1,7 +1,7 @@
 from utils.DBController import DBController
 
 
-class Articles:
+class Article:
     def __init__(self, name, src="", content="", user=None):
         self.__name = name
         self.__src = src

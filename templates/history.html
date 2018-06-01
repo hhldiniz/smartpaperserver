@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+{% block content%}
+    {{ super() }}
+    {% for article in articles %}
+    {% endfor %}
+{% endblock %}
