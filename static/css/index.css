@@ -1,0 +1,13 @@
+*
+{
+    font-family: 'Roboto', sans-serif;
+}
+#search_form
+{
+    margin-left: 30%;
+    margin-top: 20%;
+}
+#modal_login>.switch
+{
+    margin-top: 5rem;
+}

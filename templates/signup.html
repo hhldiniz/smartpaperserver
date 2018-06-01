@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/input_controller.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename="js/signup.js") }}"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<div class="row">
+    <form class="col s8" id="signup_form">
+        <div class="input-field col s4">
+            <input id="user_name">
+            <label for="user_name">Nome</label>
+        </div>
+        <div class="input-field col s4">
+            <input id="user_email" type="email">
+            <label for="user_email">Email</label>
+        </div>
+        <div class="input-field col s8">
+            <input id="user_username">
+            <label for="user_username">Usuário</label>
+        </div>
+        <div class="input-field col s4">
+            <input id="user_password" type="password">
+            <label for="user_password">Senha</label>
+        </div>
+        <div class="input-field col s4">
+            <input id="user_password_confirmation" type="password">
+            <label for="user_password_confirmation">Confirme a Senha</label>
+        </div>
+        <div class="input-field col s8">
+            <button class="btn waves-effect waves-light" type="button" id="signup_btn" name="action">Cadastrar
+            <i class="material-icons right">send</i>
+        </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
