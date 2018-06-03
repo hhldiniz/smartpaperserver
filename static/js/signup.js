@@ -1,14 +1,20 @@
 $(document).ready(()=>{
     $("#signup_btn").click(()=>{
-        let data = {
-            "name": $("#user_name").val(),
-            "username": $("#user_username").val(),
-            "email": $("#user_email").val(),
-            "password": $("#user_password").val()
-        };
+        let data = new FormData();
+        data.append("name", $("#user_name").val());
+        data.append("email", $("#user_email").val());
+        data.append("username", $("#user_username").val());
+        $.each($("#user_photo")[0].files, (i, file)=>{
+           data.append("photo", file);
+        });
+        data.append("password", $("#user_password").val());
+        console.log(data);
         $.ajax({
             url: "/signup",
             method: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
             data: data,
             success: data=>{
                 console.log(data);

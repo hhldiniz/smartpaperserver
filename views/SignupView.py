@@ -13,5 +13,6 @@ class SignupView(BaseView):
         email = request.form["email"]
         username = request.form["username"]
         password = request.form["password"]
-        user = User(name, email, username, password)
+        photo = request.files["photo"]
+        user = User(name, email, username, password, photo)
         return json.dumps({"result": user.save()})

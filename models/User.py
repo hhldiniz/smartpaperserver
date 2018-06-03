@@ -1,12 +1,14 @@
 from utils.DBController import DBController
+from utils.HandlePhotoUpload import HandlePhotoUpload
 
 
 class User:
-    def __init__(self, name="", email="", username="", password=""):
+    def __init__(self, name="", email="", username="", password="", photo=None):
         self.__name = name
         self.__email = email
         self.__username = username
         self.__password = password
+        self.__photo = photo
         self.__id = None
 
     def get_id(self):
@@ -24,6 +26,9 @@ class User:
     def set_password(self, password):
         self.__password = password
 
+    def set_photo(self, photo):
+        self.__photo = photo
+
     def get_name(self):
         return self.__name
 
@@ -36,6 +41,15 @@ class User:
     def get_password(self):
         return self.__password
 
+    def get_photo(self):
+        return self.__photo
+
+    def __save_photo(self):
+        db_controller = DBController()
+        db_controller.connect()
+        handle = HandlePhotoUpload(db_controller.get_database())
+        return handle.put(self.get_photo())
+
     def save(self):
         db_controller = DBController()
         db_controller.connect()
@@ -44,7 +58,8 @@ class User:
                                                  "name": self.__name,
                                                  "username": self.__username,
                                                  "password": self.__password,
-                                                 "email": self.__email
+                                                 "email": self.__email,
+                                                 "photo": self.__save_photo()
                                              })
         return insert_result.inserted_id is not None
 
