@@ -9,7 +9,7 @@ $(document).ready(()=>{
                     if(window.location.pathname === "#!" || window.location.pathname === "#")
                         window.location.reload();
                     else
-                        window.location.pathname=""
+                        window.location.pathname="";
                 }
             },
             error: err=>{

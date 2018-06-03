@@ -44,6 +44,18 @@ class User:
     def get_photo(self):
         return self.__photo
 
+    def get_photo_stream(self):
+        db_controller = DBController()
+        db_controller.connect()
+        handle = HandlePhotoUpload(db_controller.get_database())
+        file_id = self.get(
+            {
+                "username": self.get_username(),
+                "password": self.get_password()
+            })[0]["photo"]
+        handle.get_photo_stream(file_id)
+        return str(file_id)
+
     def __save_photo(self):
         db_controller = DBController()
         db_controller.connect()

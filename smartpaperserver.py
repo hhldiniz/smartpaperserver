@@ -1,4 +1,4 @@
-from flask import Flask, session, request
+from flask import Flask, session, request, send_from_directory
 
 from miners.ScienceDirectMiner import ScienceDirectMiner
 from utils.DBController import DBController
@@ -34,7 +34,12 @@ def get_articles_names():
 @app.route('/authenticate', methods=["POST"])
 def authenticate():
     if request.method == "POST":
-        user = User(username=request.form["username"], password=request.form["password"])
+        try:
+            user = User(username=request.form["username"], password=request.form["password"])
+            user_array = user.get({"username": user.get_username(), "password": user.get_password()})[0]
+            user.set_name(user_array["name"])
+        except IndexError:
+            return json.dumps({"result": False})
         try:
             if session["user"] == user:
                 return json.dumps({"result": True})
@@ -42,13 +47,17 @@ def authenticate():
                 login_module = Login(user)
                 login_result = login_module.login()
                 if login_result:
-                    session["user"] = {"username": user.get_username(), "password": user.get_password()}
+                    session["user"] = {"username": user.get_username(),
+                                       "password": user.get_password(),
+                                       "name": user.get_name()}
                 return json.dumps({"result": login_result})
         except KeyError:
             login_module = Login(user)
             login_result = login_module.login()
             if login_result:
-                session["user"] = {"username": user.get_username(), "password": user.get_password()}
+                session["user"] = {"username": user.get_username(),
+                                   "password": user.get_password(),
+                                   "name": user.get_name()}
             return json.dumps({"result": login_result})
 
 
@@ -57,6 +66,16 @@ def logout():
     try:
         session["user"] = None
         return json.dumps({"result": True})
+    except KeyError:
+        return json.dumps({"result": False})
+
+
+@app.route("/user_photo")
+def user_photo():
+    try:
+        session_user = session["user"]
+        user = User(username=session_user["username"], password=session_user["password"])
+        return send_from_directory(f"./temp/", user.get_photo_stream())
     except KeyError:
         return json.dumps({"result": False})
 
