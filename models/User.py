@@ -53,8 +53,7 @@ class User:
                 "username": self.get_username(),
                 "password": self.get_password()
             })[0]["photo"]
-        handle.get_photo_stream(file_id)
-        return str(file_id)
+        return handle.write_on_file(file_id)
 
     def __save_photo(self):
         db_controller = DBController()

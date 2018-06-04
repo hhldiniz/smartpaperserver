@@ -1,5 +1,7 @@
-from gridfs import GridFS, GridFSBucket
+from gridfs import GridFS
 import os
+import datetime
+import hashlib
 
 
 class HandlePhotoUpload(GridFS):
@@ -7,9 +9,12 @@ class HandlePhotoUpload(GridFS):
         super().__init__(database)
         self.__database = database
 
-    def get_photo_stream(self, file_id):
-        bucket = GridFSBucket(self.__database)
+    def write_on_file(self, file_id):
         if not os.path.isdir("../temp"):
             os.makedirs("../temp")
-        file = open(f"../temp/{file_id}", "wb+")
-        bucket.download_to_stream(file_id, file)
+        m = hashlib.md5()
+        now = datetime.datetime.now()
+        file = open(f"(../temp/{m.update(now).digest()}", "wb+")
+        file.write(self.get(file_id).read())
+        file.close()
+        return file.name
