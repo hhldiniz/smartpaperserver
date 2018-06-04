@@ -15,37 +15,7 @@
 <body>
 
 <div class="row">
-    <form class="col s8" id="signup_form" enctype="multipart/form-data">
-        <div class="col s4">
-            <input id="user_name" class="input-field">
-            <label for="user_name">Nome</label>
-        </div>
-        <div class="col s4">
-            <input id="user_email" class="input-field" type="email">
-            <label for="user_email">Email</label>
-        </div>
-        <div class="col s8">
-            <input id="user_username" class="input-field">
-            <label for="user_username">Usuário</label>
-        </div>
-        <div class="col s8">
-            <input type="file" id="user_photo" class="input-field">
-            <label for="user_photo">Foto</label>
-        </div>
-        <div class="col s4">
-            <input id="user_password" type="password" class="input-field">
-            <label for="user_password">Senha</label>
-        </div>
-        <div class="col s4">
-            <input id="user_password_confirmation" type="password" class="input-field ">
-            <label for="user_password_confirmation">Confirme a Senha</label>
-        </div>
-        <div class="input-field col s8">
-            <button class="btn waves-effect waves-light" type="button" id="signup_btn" name="action">Cadastrar
-            <i class="material-icons right">send</i>
-        </button>
-        </div>
-    </form>
+   {%include 'forms/signup_form.html'%}
 </div>
 </body>
 </html>
