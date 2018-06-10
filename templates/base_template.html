@@ -20,6 +20,9 @@
             $(document).ready(function () {
                 $(".dropdown-trigger").dropdown();
             });
+            {% if user != None %}
+
+            {% endif %}
         </script>
     {% endblock %}
 </head>
@@ -27,6 +30,7 @@
 {% block content %}
     <ul id="dropdown_user_action" class="dropdown-content">
         {% if user != None %}
+            <script>downloadPhoto();</script>
             <li><a href="#"><img src="https://placehold.it/64x64" id="user_photo">{{ user.name }}</a></li>
             <li class="divider"></li>
             <li><a href="/history">Histórico</a></li>

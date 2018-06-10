@@ -70,12 +70,12 @@ def logout():
         return json.dumps({"result": False})
 
 
-@app.route("/user_photo")
+@app.route("/user_photo", methods=["GET"])
 def user_photo():
     try:
         session_user = session["user"]
         user = User(username=session_user["username"], password=session_user["password"])
-        return send_from_directory(f"./temp/", user.get_photo_stream())
+        return send_from_directory(f"./files", user.get_photo_stream())
     except KeyError:
         return json.dumps({"result": False})
 
