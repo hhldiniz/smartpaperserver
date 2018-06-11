@@ -1,5 +1,4 @@
 from gridfs import GridFS
-import datetime
 
 
 class HandlePhotoUpload(GridFS):
@@ -8,9 +7,8 @@ class HandlePhotoUpload(GridFS):
         self.__database = database
 
     def write_on_file(self, file_id):
-        now = datetime.datetime.now()
         directory = "./files/"
-        filename = f"{now}.png"
+        filename = f"{file_id}.png"
         file = open(directory+filename, "wb")
         file.write(self.get(file_id).read())
         file.close()

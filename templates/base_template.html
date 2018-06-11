@@ -15,14 +15,10 @@
         <script src={{ url_for('static', filename='js/input_controller.js') }}></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script src={{ url_for('static', filename='js/exit.js') }}></script>
-        <script src={{url_for('static', filename='js/download_user_photo.js')}}></script>
         <script>
             $(document).ready(function () {
                 $(".dropdown-trigger").dropdown();
             });
-            {% if user != None %}
-
-            {% endif %}
         </script>
     {% endblock %}
 </head>
@@ -31,7 +27,7 @@
     <ul id="dropdown_user_action" class="dropdown-content">
         {% if user != None %}
             <script>downloadPhoto();</script>
-            <li><a href="#"><img src="https://placehold.it/64x64" id="user_photo">{{ user.name }}</a></li>
+            <li><a href="#"><img src="/user_photo" id="user_photo">{{ user.name }}</a></li>
             <li class="divider"></li>
             <li><a href="/history">Histórico</a></li>
             <li><a href="/sources">Fontes</a></li>

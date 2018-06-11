@@ -12,6 +12,7 @@ class SourcesView(BaseView):
         sources = Source.get({"user.username": session["user"]["username"],
                               "user.password": session["user"]["password"]})
         kwargs.__setitem__("sources", sources)
+        kwargs.__setitem__("user", session["user"])
         return render_template(self.get_template_name(), **kwargs)
 
     def post(self, **kwargs):
