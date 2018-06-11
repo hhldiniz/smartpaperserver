@@ -26,7 +26,6 @@
 {% block content %}
     <ul id="dropdown_user_action" class="dropdown-content">
         {% if user != None %}
-            <script>downloadPhoto();</script>
             <li><a href="#"><img src="/user_photo" id="user_photo">{{ user.name }}</a></li>
             <li class="divider"></li>
             <li><a href="/history">Histórico</a></li>

@@ -1,6 +1,7 @@
 from utils.DBController import DBController
 from utils.HandlePhotoUpload import HandlePhotoUpload
 
+
 class User:
     def __init__(self, name="", email="", username="", password="", photo=None):
         self.__name = name

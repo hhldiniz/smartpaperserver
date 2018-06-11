@@ -9,6 +9,8 @@
 {% endblock %}
 {% block content %}
     {{ super() }}
-    {% include "forms/add_source_form.html" %}
+    <div id="source_form_container">
+        {% include "forms/add_source_form.html" %}
+    </div>
     <a class="btn-floating btn-large waves-effect waves-light red" id="add_source_btn"><i class="material-icons">add</i></a>
 {% endblock %}
