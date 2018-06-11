@@ -75,7 +75,7 @@ def user_photo():
     try:
         session_user = session["user"]
         user = User(username=session_user["username"], password=session_user["password"])
-        return send_from_directory(f"./files", user.get_photo_stream())
+        return user.get_user_photo(send_from_directory)
     except KeyError:
         return json.dumps({"result": False})
 

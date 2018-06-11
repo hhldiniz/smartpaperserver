@@ -1,7 +1,6 @@
 from utils.DBController import DBController
 from utils.HandlePhotoUpload import HandlePhotoUpload
 
-
 class User:
     def __init__(self, name="", email="", username="", password="", photo=None):
         self.__name = name
@@ -44,7 +43,7 @@ class User:
     def get_photo(self):
         return self.__photo
 
-    def get_photo_stream(self):
+    def __get_photo_stream(self):
         db_controller = DBController()
         db_controller.connect()
         handle = HandlePhotoUpload(db_controller.get_database())
@@ -54,6 +53,9 @@ class User:
                 "password": self.get_password()
             })[0]["photo"]
         return handle.write_on_file(file_id)
+
+    def get_user_photo(self, send_from_directory):
+        return send_from_directory(f"./files", self.__get_photo_stream())
 
     def __save_photo(self):
         db_controller = DBController()
