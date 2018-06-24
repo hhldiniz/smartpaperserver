@@ -12,7 +12,6 @@
     {% endblock %}
     {% block scripts %}
         <script src={{ url_for('static', filename='js/jquery-3.3.1.js') }} ></script>
-        <script src={{ url_for('static', filename='js/input_controller.js') }}></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script src={{ url_for('static', filename='js/exit.js') }}></script>
         <script>
@@ -40,7 +39,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">Smart Paper</a>
+                <a href="/" class="brand-logo">Smart Paper</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/about">Sobre</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown_user_action">{% if user == None %}Login{% else %}{{ user.name }}{% endif %}<i class="material-icons right">arrow_drop_down</i></a></li>

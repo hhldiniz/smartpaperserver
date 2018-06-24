@@ -21,11 +21,12 @@ class Source:
     def save(self):
         db_controller = DBController()
         db_controller.connect()
-        insert_result = db_controller.insert("sources", {"url": self.get_url()})
+        insert_result = db_controller.insert("sources", {"url": self.get_url(),
+                                                         "user": self.get_user()})
         return insert_result.inserted_id is not None
 
     @staticmethod
     def get(select_filter):
         db_controller = DBController()
         db_controller.connect()
-        return db_controller.as_array("articles", select_filter)
+        return db_controller.as_array("sources", select_filter)

@@ -39,5 +39,4 @@ class ScienceDirectMiner(Miner):
         con = requester.get_connection("GET")
         consumer = HTMLConsumer()
         consumer.feed(str(con.content))
-        print(consumer.get_tag_content("div", ['class', '']))
         return con.content

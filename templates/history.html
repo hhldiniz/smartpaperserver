@@ -4,9 +4,13 @@
 {% endblock %}
 {% block scripts %}
     {{ super() }}
+    <script src={{ url_for('static', filename='js/history.js') }}></script>
 {% endblock %}
 {% block content%}
     {{ super() }}
-    {% for article in articles %}
-    {% endfor %}
+    <ul class="collection">
+        {% for article in articles %}
+            <li class="collection-item">{{ article.name }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

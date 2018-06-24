@@ -1,18 +1,28 @@
 {% extends "base_template.html" %}
 {% block styles %}
-{{ super() }}
-<link rel="stylesheet" href={{ url_for('static', filename='css/index.css')}}>
+    {{ super() }}
+    <link rel="stylesheet" href={{ url_for('static', filename='css/index.css')}}>
 {% endblock %}
 {% block scripts %}
-{{ super() }}
-<script src={{ url_for('static', filename='js/index.js') }}></script>
+    {{ super() }}
+    <script src={{ url_for('static', filename='js/index.js') }}></script>
 {% endblock %}
 {% block content %}
-{{ super() }}
-<div id="modal_login" class="modal">
-    <div class="modal-content">
-        <h4>Login</h4>
-        <div class="row s12">
-    {%include 'forms/login_form.html'%}
-</div>
+    {{ super() }}
+    <div id="modal_login" class="modal">
+        <div class="modal-content">
+            <h4>Login</h4>
+            <div class="row s12">
+                {%include 'forms/login_form.html'%}
+            </div>
+        </div>
+    </div>
+    <div id="search_result" class="modal">
+        <div class="modal-content">
+            <div id="search_result_text"></div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+        </div>
+    </div>
 {% endblock %}

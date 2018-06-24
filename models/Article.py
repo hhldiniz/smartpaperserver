@@ -1,4 +1,5 @@
 from utils.DBController import DBController
+from datetime import datetime
 
 
 class Article:
@@ -7,6 +8,13 @@ class Article:
         self.__src = src
         self.__content = content
         self.__user = user
+        self.__date = None
+
+    def set_date(self, date):
+        self.__date = date
+
+    def get_date(self):
+        return self.__date
 
     def set_name(self, name):
         self.__name = name
@@ -35,12 +43,14 @@ class Article:
     def save(self):
         db_controller = DBController()
         db_controller.connect()
+        self.set_date(datetime.now())
         insert_result = db_controller.insert("articles",
                                              {
                                                  "name": self.__name,
                                                  "source": self.__src,
                                                  "content": self.__content,
-                                                 "user_id": self.__user.get_id()
+                                                 "user": self.__user,
+                                                 "date": self.get_date()
                                              })
         return insert_result.inserted_id is not None
 

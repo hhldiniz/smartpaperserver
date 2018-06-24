@@ -1,6 +1,5 @@
 from flask import Flask, session, request, send_from_directory
 
-from miners.ScienceDirectMiner import ScienceDirectMiner
 from utils.DBController import DBController
 from models.User import User
 from modules.Login import Login
@@ -13,15 +12,6 @@ import json
 
 app = Flask(__name__)
 app.secret_key = "E7162800D84BFB861148F6F8E17462697866C542FE2E0E7D87AF0D01E209AB12"
-
-
-@app.route('/search', methods=["POST"])
-def search():
-    if request.method == "POST":
-        key = request.form["key"]
-        science_miner = ScienceDirectMiner()
-        science_miner.set_main_key(new_key=key)
-        return science_miner.send_request()
 
 
 @app.route('/articles-names', methods=["GET"])
@@ -85,7 +75,8 @@ about_view = AboutView("about.html")
 signup_view = SignupView("signup.html")
 history_view = HistoryView("history.html")
 sources_view = SourcesView("sources.html")
-app.add_url_rule("/", view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
+app.add_url_rule("/", methods=["GET", "POST"],
+                 view_func=index_view.as_view("index", template_name=index_view.get_template_name()))
 app.add_url_rule("/about", view_func=about_view.as_view("about", template_name=about_view.get_template_name()))
 app.add_url_rule("/signup", methods=["GET", "POST"],
                  view_func=signup_view.as_view("signup", template_name=signup_view.get_template_name()))

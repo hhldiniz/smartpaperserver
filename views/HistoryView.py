@@ -1,6 +1,7 @@
 from views.BaseView import BaseView
-from flask import render_template, session
+from flask import session
 from models.Article import Article
+from models.User import User
 
 
 class HistoryView(BaseView):
@@ -13,5 +14,8 @@ class HistoryView(BaseView):
                 "user.username": session["user"]["username"],
                 "user.password": session["user"]["password"]
             })
+        user = User.get({"username": session["user"]["username"],
+                         "password": session["user"]["password"]})[0]
         kwargs.__setitem__("articles", articles)
-        return render_template(self.get_template_name(), **kwargs)
+        kwargs.__setitem__("user", user)
+        return super().get(**kwargs)

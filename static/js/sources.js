@@ -22,7 +22,12 @@ $(document).ready(()=>{
             success: data=>{
                 data = JSON.parse(data);
                 if(data["result"])
+                {
                     M.toast({html: "Cadastro realizado"});
+                    setInterval(()=>{
+                        window.location.reload();
+                    }, 1000);
+                }
             },
             error: err=>{
                 console.log(err);
