@@ -1,6 +1,7 @@
 from views.BaseView import BaseView
 from flask import session, request
 from models.User import User
+from miners.ScienceDirectMiner import ScienceDirectMiner
 
 
 class IndexView(BaseView):
@@ -15,10 +16,20 @@ class IndexView(BaseView):
             context.__setitem__("user", None)
         return super().get(**context)
 
+    @staticmethod
+    def __search(key):
+        miner = ScienceDirectMiner()
+        miner.set_main_key(key)
+        return miner.send_request()
+
     def post(self, **context):
-        username = request.form["username"]
-        password = request.form["password"]
-        user = User(username=username, password=password)
-        user = user.get({"username": username, "password": password})
-        context.__setattr__("user", user)
+        if request.form["hidden"] == "login":
+            username = request.form["username"]
+            password = request.form["password"]
+            user = User(username=username, password=password)
+            user = user.get({"username": username, "password": password})
+            context.__setattr__("user", user)
+        else:
+            content = self.__search(request.form["key"])
+            content.__setattr__("search_result", content)
         return super().post(**context)

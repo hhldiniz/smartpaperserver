@@ -17,7 +17,9 @@ $(document).ready(function () {
         let data = {
             "username": $("#username").val(),
             "password": $("#password").val(),
-            "remember": $("#remember_switch").val()};
+            "remember": $("#remember_switch").val(),
+            "hidden": $("#login_hidden").val()
+        };
         $.ajax({
             data: data,
             method: "POST",

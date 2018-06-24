@@ -9,8 +9,22 @@
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <div id="source_form_container">
-        {% include "forms/add_source_form.html" %}
+    <div class="row s12">
+        <div class="col s8">
+            <div id="source_form_container">
+                {% include "forms/add_source_form.html" %}
+            </div>
+        </div>
+        <div class="col s4">
+            <ul class="collection">
+                {% for source in sources %}
+                    <li class="collection-item">{{ source.url }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    <a class="btn-floating btn-large waves-effect waves-light red" id="add_source_btn"><i class="material-icons">add</i></a>
-{% endblock %}
+    <div class="fixed-action-btn" id="add_source_btn">
+        <a class="btn-floating btn-large waves-effect waves-light red">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>{% endblock %}

@@ -21,7 +21,7 @@ class Source:
     def save(self):
         db_controller = DBController()
         db_controller.connect()
-        insert_result = db_controller.insert("articles", {"url": self.get_url()})
+        insert_result = db_controller.insert("sources", {"url": self.get_url()})
         return insert_result.inserted_id is not None
 
     @staticmethod
