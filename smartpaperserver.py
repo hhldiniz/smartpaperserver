@@ -64,7 +64,7 @@ def authenticate():
 @app.route("/logout")
 def logout():
     try:
-        session["user"] = None
+        session.__delitem__("user")
         return json.dumps({"result": True})
     except KeyError:
         return json.dumps({"result": False})

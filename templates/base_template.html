@@ -43,7 +43,7 @@
                 <a href="#!" class="brand-logo">Smart Paper</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/about">Sobre</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown_user_action">Login<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown_user_action">{% if user == None %}Login{% else %}{{ user.name }}{% endif %}<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>

@@ -6,10 +6,10 @@ $(document).ready(()=>{
                 data = JSON.parse(data);
                 if(data["result"])
                 {
-                    if(window.location.pathname === "#!" || window.location.pathname === "#")
+                    // if(window.location.pathname === "#!" || window.location.pathname === "#")
                         window.location.reload();
-                    else
-                        window.location.pathname="";
+                    // else
+                    //     window.location.pathname="";
                 }
             },
             error: err=>{
