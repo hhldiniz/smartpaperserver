@@ -32,7 +32,7 @@ class IndexView(BaseView):
         miner = ScienceDirectMiner()
         miner.set_main_key(key)
         content = miner.send_request()
-        article = Article(datetime.now(), miner.get_original_target(), content, user)
+        article = Article(datetime.now().timestamp(), miner.get_original_target(), content, user)
         article.save()
         return content
 

@@ -21,9 +21,9 @@ class DBController:
         if params.__len__() == 0:
             return collection.find()
         elif params.__len__() == 1:
-            return collection.find_one(params)
+            return collection.find_one(params, projection={"_id": False})
         else:
-            return collection.find(params)
+            return collection.find(params, projection={"_id": False})
 
     def as_array(self, collection, params=None):
         result = []

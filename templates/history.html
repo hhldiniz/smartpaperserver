@@ -8,6 +8,7 @@
 {% endblock %}
 {% block content%}
     {{ super() }}
+    <button class="btn" id="download_history_btn">Download do histórico</button>
     <ul class="collection">
         {% for article in articles %}
             <li class="collection-item">{{ article.name }}</li>

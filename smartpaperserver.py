@@ -2,6 +2,7 @@ from flask import Flask, session, request, send_from_directory
 
 from utils.DBController import DBController
 from models.User import User
+from models.Article import Article
 from modules.Login import Login
 from views.IndexView import IndexView
 from views.AboutView import AboutView
@@ -9,6 +10,7 @@ from views.SignupView import SignupView
 from views.HistoryView import HistoryView
 from views.SourcesView import SourcesView
 import json
+from utils.MakePDF import MakePDF
 
 app = Flask(__name__)
 app.secret_key = "E7162800D84BFB861148F6F8E17462697866C542FE2E0E7D87AF0D01E209AB12"
@@ -66,6 +68,19 @@ def user_photo():
         session_user = session["user"]
         user = User(username=session_user["username"], password=session_user["password"])
         return user.get_user_photo(send_from_directory)
+    except KeyError:
+        return json.dumps({"result": False})
+
+
+@app.route("/download_history")
+def download_history():
+    try:
+        session_user = session["user"]
+        articles = Article.get({"user.username": session_user["username"],
+                                "user.password": session_user["password"]})
+        print(articles)
+        make_pdf = MakePDF(json.dumps(articles))
+        return send_from_directory("./files/pdf", make_pdf.generate_from_string())
     except KeyError:
         return json.dumps({"result": False})
 

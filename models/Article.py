@@ -43,7 +43,7 @@ class Article:
     def save(self):
         db_controller = DBController()
         db_controller.connect()
-        self.set_date(datetime.now())
+        self.set_date(datetime.now().timestamp())
         insert_result = db_controller.insert("articles",
                                              {
                                                  "name": self.__name,
