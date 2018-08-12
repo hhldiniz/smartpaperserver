@@ -1,10 +1,13 @@
-from views.BaseView import BaseView
-from flask import session, request
-from models.User import User
-from models.Article import Article
-from miners.ScienceDirectMiner import ScienceDirectMiner
 import json
 from datetime import datetime
+
+from flask import session, request
+
+from miners.ScienceDirectMiner import ScienceDirectMiner
+from models.Article import Article
+from models.User import User
+from utils.LanguageProcessor import LanguageProcessor
+from views.BaseView import BaseView
 
 
 class IndexView(BaseView):
@@ -13,11 +16,14 @@ class IndexView(BaseView):
 
     @staticmethod
     def __get_user_obj():
-        username = session["user"]["username"]
-        password = session["user"]["password"]
-        user = User(username=username, password=password)
-        user = user.get({"username": username, "password": password})[0]
-        return user
+        try:
+            username = session["user"]["username"]
+            password = session["user"]["password"]
+            user = User(username=username, password=password)
+            user = user.get({"username": username, "password": password})[0]
+            return user
+        except KeyError:
+            return None
 
     def get(self, **context):
         try:
@@ -32,8 +38,11 @@ class IndexView(BaseView):
         miner = ScienceDirectMiner()
         miner.set_main_key(key)
         content = miner.send_request()
-        article = Article(datetime.now().timestamp(), miner.get_original_target(), content, user)
-        article.save()
+        language_processor = LanguageProcessor(content)
+        entity_tree = language_processor.entities()
+        if user is not None:
+            article = Article(datetime.now().timestamp(), miner.get_original_target(), content, user)
+            article.save()
         return content
 
     def post(self, **context):

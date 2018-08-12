@@ -4,7 +4,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/",
             method: "POST",
-            data: {"key": $("#key").val()},
+            data: {"key": $("#key").val(), "hidden": $("#search_hidden").val()},
             success: data=>{
                 $("#search_result_text").text(data);
                 $("#search_result").modal("open");
