@@ -6,7 +6,6 @@ from flask import session, request
 from miners.ScienceDirectMiner import ScienceDirectMiner
 from models.Article import Article
 from models.User import User
-from utils.LanguageProcessor import LanguageProcessor
 from views.BaseView import BaseView
 
 
@@ -37,9 +36,8 @@ class IndexView(BaseView):
     def __search(key, user):
         miner = ScienceDirectMiner()
         miner.set_main_key(key)
-        content = miner.send_request()
-        language_processor = LanguageProcessor(content)
-        entity_tree = language_processor.entities()
+        content = miner.search({"class": "result-item-content"})
+        # language_processor = LanguageProcessor(content)
         if user is not None:
             article = Article(datetime.now().timestamp(), miner.get_original_target(), content, user)
             article.save()
