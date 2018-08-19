@@ -27,4 +27,3 @@ class ScienceDirectMiner(Miner):
 
     def reset_target(self):
         self.set_target(self.get_original_target())
-

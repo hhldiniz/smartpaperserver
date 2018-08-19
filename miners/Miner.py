@@ -1,3 +1,4 @@
+import re
 import ssl
 import urllib.request as request
 
@@ -28,4 +29,17 @@ class Miner:
         return BeautifulSoup(self.send_request(), 'html5lib')
 
     def search(self, args):
+        self._clean_url()
+        print(self.get_target())
+        if type(args) == dict:
+            return self.parse().find_all(attrs=args)
         return self.parse().find_all(args)
+
+    def search_by_tag_and_class(self, tag, value):
+        return self.parse().find_all(tag, class_=value)
+
+    def _clean_url(self):
+        m = re.compile("({{\w+}})")
+        result = m.findall(self.get_target())
+        for obj in result:
+            self.set_target(self.get_target().replace(obj, ""))

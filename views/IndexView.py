@@ -37,6 +37,7 @@ class IndexView(BaseView):
         miner = ScienceDirectMiner()
         miner.set_main_key(key)
         content = miner.search({"class": "result-item-content"})
+        print(content)
         # language_processor = LanguageProcessor(content)
         if user is not None:
             article = Article(datetime.now().timestamp(), miner.get_original_target(), content, user)
@@ -50,7 +51,7 @@ class IndexView(BaseView):
                 return super().post(**context)
             else:
                 content = self.__search(request.form["key"], self.__get_user_obj())
-                return json.dumps({"search_result": content})
+                return json.dumps({"search_result": str(content)})
         except KeyError:
             content = self.__search(request.form["key"], self.__get_user_obj())
             return json.dumps({"search_result": str(content)})
