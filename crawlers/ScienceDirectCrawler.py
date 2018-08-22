@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from miners.Miner import Miner
+from crawlers.Crawler import Miner
 
 
 class ScienceDirectMiner(Miner):
