@@ -36,6 +36,11 @@ class DBController:
         collection = db[collection]
         return collection.insert_one(document)
 
+    def delete(self, collection, params):
+        db = self.get_database()
+        collection = db[collection]
+        return collection.delete_one(params)
+
     def get_database(self):
         return self.__client[self.__dbname]
 
