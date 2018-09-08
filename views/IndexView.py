@@ -3,7 +3,8 @@ from datetime import datetime
 
 from flask import session, request
 
-from crawlers.ScienceDirectCrawler import ScienceDirectMiner
+from crawlers.ACMCrawler import ACMCrawler
+from crawlers.ScienceDirectCrawler import ScienceDirectCrawler
 from models.Article import Article
 from models.User import User
 from utils.Miner import Miner
@@ -35,13 +36,16 @@ class IndexView(BaseView):
 
     @staticmethod
     def __search(key, user):
-        crawler = ScienceDirectMiner()
-        crawler.set_main_key(key)
-        content = crawler.search({"class": "result-item-content"})
+        science_direct_crawler = ScienceDirectCrawler()
+        acm_crawler = ACMCrawler()
+        acm_crawler.set_main_key(key)
+        acm_crawler.search({"class": "details"})
+        science_direct_crawler.set_main_key(key)
+        content = science_direct_crawler.search({"class": "result-item-content"})
         miner = Miner(data=content)
         miner.mine()
         if user is not None:
-            article = Article(datetime.now().timestamp(), crawler.get_original_target(), content, user)
+            article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()
         return content
 

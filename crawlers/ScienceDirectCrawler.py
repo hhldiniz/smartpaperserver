@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from crawlers.Crawler import Miner
+from crawlers.Crawler import Crawler
 
 
-class ScienceDirectMiner(Miner):
+class ScienceDirectCrawler(Crawler):
     def __init__(self):
         super().__init__("https://www.sciencedirect.com/search?"
                          "qs={{main_key}}"

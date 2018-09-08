@@ -5,7 +5,7 @@ import urllib.request as request
 from bs4 import BeautifulSoup
 
 
-class Miner:
+class Crawler:
     def __init__(self, original_url):
         self.__original_target = original_url
         self.__target = self.__original_target
