@@ -13,7 +13,7 @@ class CompleteBowTest(unittest.TestCase):
 
     def test_count_word(self):
         self.bow.get_words()
-        self.bow.count_words("palavra2 palavra3")
+        self.bow.count("palavra2 palavra3")
 
 
 if __name__ == '__main__':

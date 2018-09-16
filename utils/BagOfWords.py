@@ -1,10 +1,11 @@
-import urllib.request as request
+import json
 from enum import Enum
 
 from exceptions.WrongBowTypeException import WrongBowTypeException
+from utils.BagOfWordsCountMethod import CountMethod
 
 
-class Bow:
+class Bow(CountMethod):
     def __init__(self, source_type, source):
         self.__source_type = source_type
         self.__source = source
@@ -17,25 +18,26 @@ class Bow:
             for word in file.readline():
                 bow.__setitem__(word, 0)
         elif self.__source_type == BowTypes.REMOTE:
-            for word in list(request.urlopen(self.__source).read()):
-                bow.__setitem__(word, 0)
+            json_file = open("dictionary.json")
+            print(json_file.read())
+            bow = json.load(json_file)
         elif self.__source_type == BowTypes.NONE:
             for word in self.__source:
                 bow.__setitem__(word, 0)
         else:
             raise WrongBowTypeException("Bow type is not known")
         self.__bow = bow
+        print(bow)
 
     def get_bow(self):
         return self.__bow
 
-    def count_words(self, text):
-        text = text.split()
-        for word in text:
-            try:
-                self.get_bow()[word] += 1
-            except KeyError:
-                pass
+    def count(self, result_set):
+        self.get_words()
+        for key in self.__bow.keys():
+            for word in result_set:
+                if word == key:
+                    self.__bow[key] += 1
 
 
 class BowTypes(Enum):

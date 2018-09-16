@@ -10,4 +10,4 @@ class ACMCrawler(Crawler):
         self.set_target(self.get_original_target())
 
     def set_main_key(self, new_key):
-        self.set_main_key((self.get_target().replace("{{main_key}}", new_key)))
+        self.get_target().replace("{{main_key}}", new_key)
