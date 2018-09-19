@@ -8,7 +8,6 @@ from crawlers.ScienceDirectCrawler import ScienceDirectCrawler
 from models.Article import Article
 from models.User import User
 from utils.BagOfWords import Bow, BowTypes
-from utils.Miner import Miner
 from views.BaseView import BaseView
 
 
@@ -43,10 +42,17 @@ class IndexView(BaseView):
         # acm_crawler.search({"class": "details"})
         science_direct_crawler.set_main_key(key)
         content = science_direct_crawler.search({"class": "result-item-content"})
-        bow = Bow(BowTypes.FILE, "utils/dictionary.json")
+        bow = Bow(BowTypes.NONE,
+                  {
+                      "framework": [],
+                      "technology": [],
+                      "computer": ["machine"],
+                      "program": ["software"],
+                      "IT": ["I.T."],
+                      "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
+                  })
         bow.count(content)
-        miner = Miner(data=content)
-        # miner.mine()
+
         if user is not None:
             article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()

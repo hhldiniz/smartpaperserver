@@ -3,6 +3,7 @@ from enum import Enum
 
 from exceptions.WrongBowTypeException import WrongBowTypeException
 from utils.BagOfWordsCountMethod import CountMethod
+from utils.Ranking import Ranking
 
 
 class Bow(CountMethod):
@@ -27,17 +28,21 @@ class Bow(CountMethod):
         else:
             raise WrongBowTypeException("Bow type is not known")
         self.__bow = bow
-        print(bow)
 
     def get_bow(self):
         return self.__bow
 
     def count(self, result_set):
         self.get_words()
+        word_sum = 0
         for key in self.__bow.keys():
-            for word in result_set:
-                if word == key:
+            for result in result_set:
+                if key in str(result):
                     self.__bow[key] += 1
+                    word_sum += 1
+        print(self.__bow)
+        ranking = Ranking(result_set, word_sum)
+        ranking.prepare_rank()
 
 
 class BowTypes(Enum):
