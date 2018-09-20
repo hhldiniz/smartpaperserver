@@ -17,11 +17,10 @@ class Ranking:
 
     @staticmethod
     def __sort_rank(ranking):
-        for index, obj in enumerate(ranking):
-            for index2, obj2 in enumerate(obj):
-                if obj[1] < obj2[1]:
-                    aux = obj
-                    ranking[index] = ranking[index2]
-                    ranking[index2] = aux
-        print(ranking)
+        for i in range(len(ranking)-1, 0, -1):
+            for j in ranking(i):
+                if ranking[j][1] > ranking[j + 1][1]:
+                    aux = ranking[j]
+                    ranking[j] = ranking[j + 1]
+                    ranking[j + 1] = aux
         return ranking

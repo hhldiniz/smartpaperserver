@@ -1,4 +1,4 @@
-#!/home/hugo/smartpaperserver/venv/bin/python
+#!/home/sbdev06/PycharmProjects/smartpaperserver/venv/bin/python
 
 # -*- coding: utf-8 -*-
 import re
