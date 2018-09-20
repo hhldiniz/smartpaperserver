@@ -34,14 +34,16 @@ class Bow(CountMethod):
 
     def count(self, result_set):
         self.get_words()
-        word_sum = 0
-        for key in self.__bow.keys():
-            for result in result_set:
+        word_count_set = []
+        for result in result_set:
+            word_sum = 0
+            for key in self.__bow.keys():
                 if key in str(result):
                     self.__bow[key] += 1
                     word_sum += 1
+            word_count_set.append(word_sum)
         print(self.__bow)
-        ranking = Ranking(result_set, word_sum)
+        ranking = Ranking(result_set, word_count_set)
         ranking.prepare_rank()
 
 
