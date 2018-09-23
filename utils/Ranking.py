@@ -12,21 +12,15 @@ class Ranking:
     def prepare_rank(self):
         ranking = []
         for index, article in enumerate(self.__article_set):
-            ranking.append([article, self.__word_count[index]])
+            ranking.append((article, self.__word_count[index]))
         return self.__sort_rank(ranking)
 
     @staticmethod
     def __sort_rank(ranking):
-        i = 0
-        j = 0
-        while i < len(ranking):
-            while j+1 < len(ranking):
-                if ranking[i][1] > ranking[j][1]:
-                    aux = ranking[i]
-                    ranking[i] = ranking[j]
-                    ranking[j] = aux
-                j += 1
-            i += 1
-        for obj in ranking:
-            print(obj[1])
+        for i in range(len(ranking)-1, 0, -1):
+            for j in ranking(i):
+                if ranking[j][1] > ranking[j + 1][1]:
+                    aux = ranking[j]
+                    ranking[j] = ranking[j + 1]
+                    ranking[j + 1] = aux
         return ranking
