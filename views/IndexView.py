@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import session, request
 
-from crawlers.ACMCrawler import ACMCrawler
+from crawlers.ScieloCrawler import ScieloCrawler
 from crawlers.ScienceDirectCrawler import ScienceDirectCrawler
 from models.Article import Article
 from models.User import User
@@ -37,10 +37,9 @@ class IndexView(BaseView):
     @staticmethod
     def __search(key, user):
         science_direct_crawler = ScienceDirectCrawler()
-        acm_crawler = ACMCrawler()
-        acm_crawler.set_main_key(key)
-        # acm_crawler.search({"class": "details"})
+        scielo_crawler = ScieloCrawler()
         science_direct_crawler.set_main_key(key)
+        scielo_crawler.set_main_key(key)
         content = science_direct_crawler.search({"class": "result-item-content"})
         bow = Bow(BowTypes.NONE,
                   {
@@ -52,7 +51,8 @@ class IndexView(BaseView):
                       "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
                   })
         bow.count(content)
-
+        content = scielo_crawler.search({"class": "results"})
+        bow.count(content)
         if user is not None:
             article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()
