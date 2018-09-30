@@ -44,7 +44,7 @@ class Bow(CountMethod):
             word_count_set.append(word_sum)
         print(self.__bow)
         ranking = Ranking(result_set, word_count_set)
-        ranking.prepare_rank()
+        return ranking.prepare_rank()
 
 
 class BowTypes(Enum):

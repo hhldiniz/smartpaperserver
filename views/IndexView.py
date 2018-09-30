@@ -41,6 +41,7 @@ class IndexView(BaseView):
         science_direct_crawler.set_main_key(key)
         scielo_crawler.set_main_key(key)
         content = science_direct_crawler.search({"class": "result-item-content"})
+        prepared_content = []
         bow = Bow(BowTypes.NONE,
                   {
                       "framework": [],
@@ -50,13 +51,13 @@ class IndexView(BaseView):
                       "IT": ["I.T."],
                       "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
                   })
-        bow.count(content)
+        prepared_content.append(bow.count(content))
         content = scielo_crawler.search({"class": "results"})
-        bow.count(content)
+        prepared_content.append(bow.count(content))
         if user is not None:
             article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()
-        return content
+        return prepared_content
 
     def post(self, **context):
         try:
