@@ -8,6 +8,7 @@ from crawlers.ScienceDirectCrawler import ScienceDirectCrawler
 from models.Article import Article
 from models.User import User
 from utils.BagOfWords import Bow, BowTypes
+from utils.RankingPreprocessor import RankingPreprocessor
 from views.BaseView import BaseView
 
 
@@ -51,9 +52,11 @@ class IndexView(BaseView):
                       "IT": ["I.T."],
                       "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
                   })
-        prepared_content.append(bow.count(content))
+        prepared_content.append(RankingPreprocessor(bow.count(content),
+                                                    ScieloCrawler.tags).get_prepared_ranking())
         content = scielo_crawler.search({"class": "results"})
-        prepared_content.append(bow.count(content))
+        prepared_content.append(RankingPreprocessor(bow.count(content),
+                                                    ScienceDirectCrawler.tags).get_prepared_ranking())
         if user is not None:
             article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()

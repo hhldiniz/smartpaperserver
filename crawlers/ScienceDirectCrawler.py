@@ -4,6 +4,8 @@ from crawlers.Crawler import Crawler
 
 
 class ScienceDirectCrawler(Crawler):
+    tags = {"article_names": {"class": "result-list-title-link"}, "article_content": None}
+
     def __init__(self):
         super().__init__("https://www.sciencedirect.com/search?"
                          "qs={{main_key}}"

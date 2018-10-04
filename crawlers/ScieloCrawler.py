@@ -2,6 +2,9 @@ from crawlers.Crawler import Crawler
 
 
 class ScieloCrawler(Crawler):
+
+    tags = {"article_names": {"class": "title"}, "article_content": None}
+
     def __init__(self):
         super().__init__("https://search.scielo.org/?q={{main_key}}&where=ORG")
 
