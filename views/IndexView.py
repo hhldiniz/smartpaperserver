@@ -53,10 +53,10 @@ class IndexView(BaseView):
                       "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
                   })
         prepared_content.append(RankingPreprocessor(bow.count(content),
-                                                    ScieloCrawler.tags).get_prepared_ranking())
+                                                    ScienceDirectCrawler.tags).get_prepared_ranking())
         content = scielo_crawler.search({"class": "results"})
         prepared_content.append(RankingPreprocessor(bow.count(content),
-                                                    ScienceDirectCrawler.tags).get_prepared_ranking())
+                                                    ScieloCrawler.tags).get_prepared_ranking())
         if user is not None:
             article = Article(datetime.now().timestamp(), science_direct_crawler.get_original_target(), content, user)
             article.save()
