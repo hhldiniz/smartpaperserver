@@ -69,7 +69,7 @@ class IndexView(BaseView):
                 return super().post(**context)
             else:
                 content = self.__search(request.form["key"], self.__get_user_obj())
-                return json.dumps({"search_result": str(content)})
+                return json.dumps(content)
         except KeyError:
             content = self.__search(request.form["key"], self.__get_user_obj())
-            return json.dumps({"search_result": str(content)})
+            return json.dumps(content)

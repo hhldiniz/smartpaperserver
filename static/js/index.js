@@ -8,6 +8,7 @@ $(document).ready(function () {
             data: {"key": $("#key").val(), "hidden": $("#search_hidden").val()},
             success: data=>{
                 data = JSON.parse(data);
+                $(".collection-item").remove();
                 for(let key in data)
                 {
                     if(data.hasOwnProperty(key))
@@ -15,8 +16,7 @@ $(document).ready(function () {
                         {
                             if(data[key].hasOwnProperty(result))
                             {
-                                result = JSON.parse(data[key]);
-                                $(".result_collection").append(`<li class='collection-item'>${data[key][result]}</li>`);
+                                $(".result_collection").append(`<li class='collection-item'>${data[key][result]["name"]}</li>`);
                             }
                         }
                 }
