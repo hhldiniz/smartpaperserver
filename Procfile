@@ -1,2 +1,2 @@
 release: python3 smartpaperserver.py
-web: gunicorn gettingstarted.wsgi
+web: gunicorn manage:app
