@@ -1,1 +1,1 @@
-web: gunicorn smartpaperserver:app
+web: python3 smartpaperserver.py
