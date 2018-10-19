@@ -1,2 +1,1 @@
-release: python3 smartpaperserver.py
-web: gunicorn manage:app
+web: gunicorn smartpaperserver:app
