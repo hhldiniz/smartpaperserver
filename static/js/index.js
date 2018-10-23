@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $(".modal").modal();
     let resultCollection = $(".result_collection");
     resultCollection.hide();
     $("#submit_search").click(()=> {
