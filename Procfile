@@ -1,1 +1,1 @@
-web: gunicorn smartpaperserver:smartpaperserver
+web: gunicorn smartpaperserver:app
