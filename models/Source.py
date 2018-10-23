@@ -1,3 +1,5 @@
+import os
+
 from utils.DBController import DBController
 
 
@@ -19,7 +21,10 @@ class Source:
         return self.__user
 
     def save(self):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         insert_result = db_controller.insert("sources", {"url": self.get_url(),
                                                          "user": self.get_user()})

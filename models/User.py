@@ -1,3 +1,5 @@
+import os
+
 from utils.DBController import DBController
 from utils.HandlePhotoUpload import HandlePhotoUpload
 
@@ -45,7 +47,10 @@ class User:
         return self.__photo
 
     def __get_photo_stream(self):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         handle = HandlePhotoUpload(db_controller.get_database())
         file_id = self.get(
@@ -59,13 +64,19 @@ class User:
         return send_from_directory(f"./files", self.__get_photo_stream())
 
     def __save_photo(self):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         handle = HandlePhotoUpload(db_controller.get_database())
         return handle.put(self.get_photo())
 
     def save(self):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         insert_result = db_controller.insert("users",
                                              {
@@ -79,6 +90,9 @@ class User:
 
     @staticmethod
     def get(select_filter):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         return db_controller.as_array("users", select_filter)

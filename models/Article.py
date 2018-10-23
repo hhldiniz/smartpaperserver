@@ -1,5 +1,7 @@
-from utils.DBController import DBController
+import os
 from datetime import datetime
+
+from utils.DBController import DBController
 
 
 class Article:
@@ -41,7 +43,10 @@ class Article:
         return self.__user
 
     def save(self):
-        db_controller = DBController()
+        if os.environ.get("MONGODB_URI") is None:
+            db_controller = DBController()
+        else:
+            db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
         db_controller.connect()
         self.set_date(datetime.now().timestamp())
         insert_result = db_controller.insert("articles",

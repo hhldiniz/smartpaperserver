@@ -2,16 +2,20 @@ from pymongo import MongoClient
 
 
 class DBController:
-    def __init__(self, host="localhost", dbname="test", dbuser="", password="", port=27017):
+    def __init__(self, host="localhost", dbname="test", dbuser="", password="", port=27017, uri=None):
         self.__host = host
         self.__dbname = dbname
         self.__dbuser = dbuser
         self.__port = port
         self.password = password
+        self.__uri = uri
         self.__client = None
 
     def connect(self):
-        self.__client = MongoClient(host=self.__host, port=self.__port)
+        if self.__uri is None:
+            self.__client = MongoClient(host=self.__host, port=self.__port)
+        else:
+            self.__client = MongoClient(self.__uri)
 
     def select(self, collection, params=None):
         if params is None:
