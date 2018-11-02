@@ -1,7 +1,15 @@
 $(document).ready(function () {
     $(".modal").modal();
-    let resultCollection = $(".result_collection");
+    let resultCollection = $(".result_collection_container");
+    let searchForm = $("#search_form");
+    let backToSearch = $("#back_to_search");
+    backToSearch.hide();
+    backToSearch.click(()=>{
+        searchForm.show();
+        resultCollection.hide();
+    });
     resultCollection.hide();
+    searchForm.show();
     $("#submit_search").click(()=> {
         $.ajax({
             url: "/",
@@ -22,6 +30,8 @@ $(document).ready(function () {
                         }
                 }
                 resultCollection.show();
+                searchForm.hide();
+                backToSearch.show();
             },
             error: err=>{
                 console.error(err)
