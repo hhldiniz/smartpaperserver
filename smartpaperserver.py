@@ -86,6 +86,18 @@ def download_history():
         return json.dumps({"result": False})
 
 
+@app.route("/user_info")
+def get_user_info():
+    try:
+        session_user = session["user"]
+        db_controller = DBController()
+        db_controller.connect()
+        return json.dumps(db_controller.as_array("users", {"username": session_user["username"],
+                                                           "password": session_user["password"]}))
+    except KeyError:
+        return json.dumps({"result": False})
+
+
 index_view = IndexView("index.html")
 about_view = AboutView("about.html")
 signup_view = SignupView("signup.html")
