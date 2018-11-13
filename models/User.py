@@ -69,6 +69,7 @@ class User:
             db_controller = DBController()
         else:
             db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
+            db_controller.set_dbname(os.environ.get("DATABASE"))
         db_controller.connect()
         handle = HandlePhotoUpload(db_controller.get_database())
         return handle.put(self.get_photo())
@@ -78,6 +79,7 @@ class User:
             db_controller = DBController()
         else:
             db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
+            db_controller.set_dbname(os.environ.get("DATABASE"))
         db_controller.connect()
         insert_result = db_controller.insert("users",
                                              {
@@ -95,5 +97,6 @@ class User:
             db_controller = DBController()
         else:
             db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
+            db_controller.set_dbname(os.environ.get("DATABASE"))
         db_controller.connect()
         return db_controller.as_array("users", select_filter)
