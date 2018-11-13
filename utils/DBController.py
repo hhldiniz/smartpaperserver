@@ -7,7 +7,7 @@ class DBController:
         self.__dbname = dbname
         self.__dbuser = dbuser
         self.__port = port
-        self.password = password
+        self.__password = password
         self.__uri = uri
         self.__client = None
 

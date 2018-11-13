@@ -47,6 +47,7 @@ class Article:
             db_controller = DBController()
         else:
             db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
+            db_controller.set_dbname(os.environ.get("DATABASE"))
         db_controller.connect()
         self.set_date(datetime.now().timestamp())
         insert_result = db_controller.insert("articles",

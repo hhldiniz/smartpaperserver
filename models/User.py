@@ -51,6 +51,7 @@ class User:
             db_controller = DBController()
         else:
             db_controller = DBController(uri=os.environ.get("MONGODB_URI"))
+            db_controller.set_dbname(os.environ.get("DATABASE"))
         db_controller.connect()
         handle = HandlePhotoUpload(db_controller.get_database())
         file_id = self.get(
