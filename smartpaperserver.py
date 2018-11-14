@@ -32,10 +32,10 @@ def authenticate():
             user_array = user.get({"username": user.get_username(), "password": user.get_password()})[0]
             user.set_name(user_array["name"])
         except IndexError:
-            return json.dumps({"result": False})
+            return json.dumps([{"result": False}])
         try:
             if session["user"] == user:
-                return json.dumps({"result": True})
+                return json.dumps([{"result": True}])
             else:
                 login_module = Login(user)
                 login_result = login_module.login()
@@ -51,7 +51,7 @@ def authenticate():
                 session["user"] = {"username": user.get_username(),
                                    "password": user.get_password(),
                                    "name": user.get_name()}
-            return json.dumps({"result": login_result})
+            return json.dumps([{"result": login_result}])
 
 
 @app.route("/logout")
