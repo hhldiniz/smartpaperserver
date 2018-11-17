@@ -1,6 +1,7 @@
 import json
 
 from flask import request
+from werkzeug.datastructures import FileStorage
 
 from models.User import User
 from views.BaseView import BaseView
@@ -18,7 +19,6 @@ class SignupView(BaseView):
         try:
             photo = request.files["photo"]
         except KeyError:
-            print("No photo")
-            photo = ""
+            photo = FileStorage(open("./files/blank-profile-picture-973460_640.png", "rb"))
         user = User(name, email, username, password, photo)
         return json.dumps({"result": user.save()})
