@@ -83,10 +83,10 @@ def download_history():
         make_pdf = MakePDF(json.dumps(articles))
         return send_from_directory("./files/pdf", make_pdf.generate_from_string())
     except KeyError:
-        return json.dumps({"result": False})
+        return json.dumps([{"result": False}])
 
 
-@app.route("/user_info")
+@app.route("/user_info", methods=["GET", "POST"])
 def get_user_info():
     try:
         session_user = session["user"]
@@ -95,7 +95,7 @@ def get_user_info():
         return json.dumps(db_controller.as_array("users", {"username": session_user["username"],
                                                            "password": session_user["password"]}))
     except KeyError:
-        return json.dumps({"result": False})
+        return json.dumps([{"result": False}])
 
 
 index_view = IndexView("index.html")

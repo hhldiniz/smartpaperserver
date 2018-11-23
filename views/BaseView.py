@@ -1,6 +1,7 @@
-from flask.views import View
-from flask import request, render_template
 from abc import ABC
+
+from flask import request, render_template
+from flask.views import View
 
 
 class BaseView(View, ABC):
@@ -25,3 +26,12 @@ class BaseView(View, ABC):
 
     def post(self, **kwargs):
         return render_template(self.__template_name, **kwargs)
+
+    @staticmethod
+    def get_post_data(property_name):
+        if property_name in request.form:
+            return request.form[property_name]
+        if property_name in request.args:
+            return request.args[property_name]
+        if property_name in request.files:
+            return request.files[property_name]

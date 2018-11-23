@@ -1,6 +1,5 @@
 import json
 
-from flask import request
 from werkzeug.datastructures import FileStorage
 
 from models.User import User
@@ -12,13 +11,16 @@ class SignupView(BaseView):
         super().__init__(template_name, title)
 
     def post(self, **kwargs):
-        name = request.form["name"]
-        email = request.form["email"]
-        username = request.form["username"]
-        password = request.form["password"]
+        name = self.get_post_data("name")
+        email = self.get_post_data("email")
+        username = self.get_post_data("username")
+        password = self.get_post_data("password")
         try:
-            photo = request.files["photo"]
+            photo = self.get_post_data("photo")
+            if type(photo) == str:
+                photo = FileStorage(open("./files/blank-profile-picture-973460_640.png", "rb"))
         except KeyError:
             photo = FileStorage(open("./files/blank-profile-picture-973460_640.png", "rb"))
         user = User(name, email, username, password, photo)
-        return json.dumps({"result": user.save()})
+        return json.dumps([{"result": user.save()}])
+
