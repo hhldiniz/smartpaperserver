@@ -31,11 +31,14 @@ def authenticate():
             user = User(username=request.form["username"], password=request.form["password"])
             user_array = user.get({"username": user.get_username(), "password": user.get_password()})[0]
             user.set_name(user_array["name"])
+            user.set_email(user_array["email"])
         except IndexError:
             return json.dumps([{"result": False}])
         try:
             if session["user"] == user:
-                return json.dumps([{"result": True}])
+                return json.dumps([{"result": True, "user": {"username": user.get_username(),
+                                                             "name": user.get_name(),
+                                                             "email": user.get_email()}}])
             else:
                 login_module = Login(user)
                 login_result = login_module.login()
@@ -43,7 +46,9 @@ def authenticate():
                     session["user"] = {"username": user.get_username(),
                                        "password": user.get_password(),
                                        "name": user.get_name()}
-                return json.dumps({"result": login_result})
+                return json.dumps([{"result": login_result, "user": {"username": user.get_username(),
+                                                                     "name": user.get_name(),
+                                                                     "email": user.get_email()}}])
         except KeyError:
             login_module = Login(user)
             login_result = login_module.login()
@@ -51,7 +56,9 @@ def authenticate():
                 session["user"] = {"username": user.get_username(),
                                    "password": user.get_password(),
                                    "name": user.get_name()}
-            return json.dumps([{"result": login_result}])
+            return json.dumps([{"result": login_result, "user": {"username": user.get_username(),
+                                                                 "name": user.get_name(),
+                                                                 "email": user.get_email()}}])
 
 
 @app.route("/logout")
@@ -82,18 +89,6 @@ def download_history():
         print(articles)
         make_pdf = MakePDF(json.dumps(articles))
         return send_from_directory("./files/pdf", make_pdf.generate_from_string())
-    except KeyError:
-        return json.dumps([{"result": False}])
-
-
-@app.route("/user_info", methods=["GET", "POST"])
-def get_user_info():
-    try:
-        session_user = session["user"]
-        db_controller = DBController()
-        db_controller.connect()
-        return json.dumps(db_controller.as_array("users", {"username": session_user["username"],
-                                                           "password": session_user["password"]}))
     except KeyError:
         return json.dumps([{"result": False}])
 

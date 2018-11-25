@@ -18,16 +18,11 @@ $(document).ready(function () {
             success: data=>{
                 data = JSON.parse(data);
                 $(".collection-item").remove();
-                for(let key in data)
+                console.log(typeof(data[1][0]["name"]));
+                for(let obj in data[1][0]["name"])
                 {
-                    if(data.hasOwnProperty(key))
-                        for(let result in data[key])
-                        {
-                            if(data[key].hasOwnProperty(result))
-                            {
-                                $(".result_collection").append(`<li class='collection-item'>${data[key][result]["name"]}</li>`);
-                            }
-                        }
+                    if(data[1][0]["name"].hasOwnProperty(obj))
+                        $(".result_collection").append(`<li class="collection-item">${data[1][0]["name"][obj]}</li>`);
                 }
                 resultCollection.show();
                 searchForm.hide();
