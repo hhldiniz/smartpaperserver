@@ -50,7 +50,22 @@ class IndexView(BaseView):
                       "computer": ["machine"],
                       "program": ["software"],
                       "IT": ["I.T."],
-                      "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"]
+                      "AI": ["A.I.", "A.I", "artificial intelligence", "Artificial Intelligence"],
+                      "OOP": ["Object-Oriented Programming, object-oriented programming"],
+                      "Bugs": ["Bugs"],
+                      "DEVOPS": [],
+                      "Version Control": ["GIT", "git", "Mercurial", "mercurial", "SVN"],
+                      "Firewall": ["firewall", "FIREWALL"],
+                      "Cloud": ["Cloud Computing"],
+                      "Routers": [],
+                      "VM": ["Virtual Machine", "Virtual Machines"],
+                      "VPN": ["Virtual Private Network"],
+                      "Big Data": ["BD", "big data"],
+                      "IDE": [],
+                      "apps": ["APP", "App"],
+                      "SDK": [],
+                      "Web Apps": ["site"],
+                      "Database": ["database"]
                   })
         prepared_content.append(RankingPreprocessor(bow.count(content),
                                                     ScienceDirectCrawler.tags).get_prepared_ranking())
